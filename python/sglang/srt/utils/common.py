@@ -1495,7 +1495,10 @@ def get_nvgpu_memory_capacity():
         )
 
         if result.returncode != 0:
-            raise RuntimeError(f"nvidia-smi error: {result.stderr.strip()}")
+            raise RuntimeError(
+                f"nvidia-smi failed with return code {result.returncode}. "
+                f"stderr: '{result.stderr.strip()}', stdout: '{result.stdout.strip()}'"
+            )
 
         # Parse the output to extract memory values
         memory_values = [
